@@ -12,7 +12,8 @@ export default class MainApi extends React.Component {
             token : "",
             status : false,
             form: true,
-            isAuth: false
+            isAuth: false,
+            arr : []
         }
         this.makePostRequest = this.makePostRequest.bind(this)
     }
@@ -37,6 +38,12 @@ export default class MainApi extends React.Component {
                status: true,
                isAuth:true
             })
+            axios.get(`https://jsonplaceholder.typicode.com/posts`).then(resp => {
+                this.setState({
+                    arr : [...resp.data]
+                })
+            console.log(resp.data);
+            });
         }
 
     }
@@ -90,6 +97,13 @@ export default class MainApi extends React.Component {
                         </div>
                     </div>
                 }
+                {
+                    this.state.arr.map(a=>(
+                       <div style={{height:"100px", width: "600px", color: "White", background:"grey", margin:"10px auto"}}>{a.title}</div> 
+                    ))
+                }
+
+            {/* <p>{this.state.arr}</p> */}
                         {/* <AuthContext.Provider value={value}>
                             {this.props.children}
                         </AuthContext.Provider> */}
